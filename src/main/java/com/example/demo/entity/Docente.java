@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -25,8 +26,13 @@ public class Docente {
     @Column(nullable = false)
     private String cognome;
 
-    @Column(nullable = false)
-    private Date data_nascita;
+    @Column(nullable = false, name = "data_nascita")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")                                 // serve a Spring per interpretare la stringa
+    private Date dataNascita;
 
 
+    public void setId(Long id) {
+        this.id=id;
+    }
 }

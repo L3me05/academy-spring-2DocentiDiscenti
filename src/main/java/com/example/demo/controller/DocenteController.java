@@ -28,7 +28,7 @@ public class DocenteController {
     }
 
     // FORM NUOVO
-    @GetMapping("/nuovo")
+    @GetMapping("/new")
     public String showAdd(Model model) {
         model.addAttribute("docente", new Docente());
         return "form-docente";
@@ -36,36 +36,33 @@ public class DocenteController {
 
     // SALVA NUOVO
     @PostMapping
-    public String create(@ModelAttribute("docente") Docente docente,
-                         BindingResult br) {
+    public String create(@ModelAttribute("docente") Docente docente, BindingResult br) {
         if (br.hasErrors()) return "form-docente";
         docenteService.save(docente);
-        return "redirect:/docenti";
+        return "redirect:/docenti/lista";
     }
 
     // FORM EDIT
     @GetMapping("/{id}/edit")
-    public String showEdit(@PathVariable Long id, Model model) {
-        model.addAttribute("docente", docenteService.get(id));
-        return "form-docente";
+    public String showEdit(@PathVariable Long id, Model model) {                                //@PathVariable Long id: estrae l’id dalla URL.
+        model.addAttribute("docente", docenteService.get(id));                      //docenteService.get(id): recupera il docente con quell’id dal database.
+        return "form-docente";                                                                  //model.addAttribute(...): mette il docente nel Model così da riempire il form (form:form) con i suoi dati.
     }
 
     // AGGIORNA
     @PostMapping("/{id}")
-    public String update(@PathVariable Long id,
-                         @ModelAttribute("docente") Docente docente,
-                         BindingResult br) {
+    public String update(@PathVariable Long id, @ModelAttribute("docente") Docente docente, BindingResult br) {                 //@ModelAttribute("docente"): Spring crea un oggetto Docente con i valori del form.
         if (br.hasErrors()) return "form-docente";
-        docente.setId(id);
-        docenteService.save(docente);
-        return "redirect:/docenti";
+        docente.setId(id);                                                                                                  //docente.setId(id): imposta l’ID corretto (serve se non è passato nel form).
+        docenteService.save(docente);                                                                           //salva e aggiorna il db
+        return "redirect:/docenti/lista";
     }
 
     // DELETE
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {
         docenteService.delete(id);
-        return "redirect:/docenti";
+        return "redirect:/docenti/lista";
     }
 
 
