@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,9 +38,31 @@ public class DiscenteController {
     public String create(@ModelAttribute("discente") Discente discente, BindingResult br){
         if(br.hasErrors()) return "form-discente";
         discenteService.save(discente);
-        return "redirect:/discente/list";
+        return "redirect:/discenti/list";
     }
 
+
+    //Modifica
+
+    @GetMapping("/{id}/edit")
+    public String showEdit(@PathVariable Long id, Model model) {
+        model.addAttribute("discente", discenteService.get(id));
+        return "form-discente";
+    }
+
+    @PostMapping("/{id}")
+    public String update(@PathVariable Long id, @ModelAttribute("discente") Discente discente, BindingResult br ) {
+        if(br.hasErrors()) return "form-discente";
+        discente.setId(id);
+        discenteService.save(discente);
+        return "redirect:/discenti/list";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        discenteService.delete(id);
+        return "redirect:/discenti/list";
+    }
 
 
 

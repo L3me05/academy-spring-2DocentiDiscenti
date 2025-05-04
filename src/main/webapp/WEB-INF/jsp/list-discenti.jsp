@@ -12,8 +12,8 @@
 <body class="container mt-4">
 <h1>Elenco Discenti</h1>
 
+<a class="btn btn-primary mb-3" href="<c:url value='/home'/>">Home</a>
 <a class="btn btn-primary mb-3" href="<c:url value='/discenti/new'/>">Nuovo Studente</a>
-
 <table class="table table-striped">
     <thead>
     <tr>
@@ -30,9 +30,9 @@
             <td>${d.eta}</td>
             <td>${d.cittaResidenza}</td>
             <td>
-                <a class="btn btn-sm btn-secondary" href="<c:url value='/docenti/${d.id}/edit'/>">Modifica</a>
+                <a class="btn btn-sm btn-secondary" href="<c:url value='/discenti/${d.id}/edit'/>">Modifica</a>
                 <a class="btn btn-sm btn-danger"
-                   href="<c:url value='/docenti/${d.id}/delete'/>"
+                   href="<c:url value='/discenti/${d.id}/delete'/>"
                    onclick="return confirm('Sei sicuro?')">Elimina</a>
             </td>
         </tr>

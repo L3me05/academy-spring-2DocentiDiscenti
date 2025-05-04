@@ -43,14 +43,15 @@ public class DocenteController {
     }
 
     // FORM EDIT
-    @GetMapping("/{id}/edit")
-    public String showEdit(@PathVariable Long id, Model model) {                                //@PathVariable Long id: estrae l’id dalla URL.
+    @GetMapping("/{id}/edit")                                                   //Risponde a richieste GET come (...)
+    public String showEdit(@PathVariable Long id, Model model) {                                //@PathVariable Long id: estrae l’id dalla URL e lo passa al metodo come variabile.
         model.addAttribute("docente", docenteService.get(id));                      //docenteService.get(id): recupera il docente con quell’id dal database.
         return "form-docente";                                                                  //model.addAttribute(...): mette il docente nel Model così da riempire il form (form:form) con i suoi dati.
+                                                                                    //Ritorna la pagina JSP form-docente.jsp già precompilata con i dati del docente, pronti per essere modificati.
     }
 
     // AGGIORNA
-    @PostMapping("/{id}")
+    @PostMapping("/{id}")                                                                                                   //Gestisce l’invio del form modificato con una richiesta POST
     public String update(@PathVariable Long id, @ModelAttribute("docente") Docente docente, BindingResult br) {                 //@ModelAttribute("docente"): Spring crea un oggetto Docente con i valori del form.
         if (br.hasErrors()) return "form-docente";
         docente.setId(id);                                                                                                  //docente.setId(id): imposta l’ID corretto (serve se non è passato nel form).
@@ -62,7 +63,7 @@ public class DocenteController {
     @GetMapping("/{id}/delete")                              //@GetMapping("/{id}/delete"): Mappa ad esempio /docenti/5/delete.
     public String delete(@PathVariable Long id) {
         docenteService.delete(id);
-        return "redirect:/docenti/lista";
+        return "redirect:/docenti/lista";                   //Dopo l’aggiornamento, reindirizza alla lista di tutti i docenti.
     }
 
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor          //genera costruttore senza argomenti
 @AllArgsConstructor         //genera costruttore  con tutti i campi degli argomenti
@@ -30,6 +31,10 @@ public class Docente {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")                                 // serve a Spring per interpretare la stringa
     private Date dataNascita;
+
+    @OneToMany(mappedBy = "docente")
+    private List<Corso> corsi;
+
 
 
 }

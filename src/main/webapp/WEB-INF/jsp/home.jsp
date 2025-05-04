@@ -23,7 +23,7 @@
                 <a href="<c:url value='/discenti/list'/>">Form Studente</a>
             </div>
             <div class="menu3">
-                <a href="form-corso.html">Form Corso</a>
+                <a href="<c:url value='/corsi/list'/>">Form Corso</a>
             </div>
         </div>
 

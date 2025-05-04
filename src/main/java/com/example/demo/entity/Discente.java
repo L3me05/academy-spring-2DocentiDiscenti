@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 @Data
 @NoArgsConstructor
@@ -32,4 +37,12 @@ public class Discente {
     @Column(nullable = false, name= "città_residenza")
     private String cittaResidenza;
 
+//    @ManyToMany
+//    @JoinTable(name = "corso_discente",
+//                joinColumns = @JoinColumn(name = "id_discente"),
+//                inverseJoinColumns = @JoinColumn(name = "id_corso"))
+//    private Set<Corso> corsi=new HashSet<>();
+
+    @ManyToMany(mappedBy = "discenti")
+    private List<Corso> corsi;
 }

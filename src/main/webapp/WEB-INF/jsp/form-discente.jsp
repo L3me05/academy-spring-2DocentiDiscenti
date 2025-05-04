@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Form Docente</title>
+        <title>Form Studente</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -18,11 +18,11 @@
         <div class="container mt-5">
             <div class="card">
                 <div class="card-header">
-                    <h1>Form Docente</h1>
+                    <h1>Form Studente</h1>
                 </div>
                 <div class="card-body">
                     <!-- Spring Form -->
-                    <form:form action="${pageContext.request.contextPath}/discente" method="post" modelAttribute="discente">
+                    <form:form action="${pageContext.request.contextPath}/discenti" method="post" modelAttribute="discente">
                             <form:hidden path="id" />
                         <div class="mb-3">
                             <form:label path="nome" cssClass="form-label">Nome</form:label>
@@ -36,13 +36,13 @@
                         </div>
                         <div class="mb-3">
                             <form:label path="matricola" cssClass="form-label">Matricola</form:label>
-                            <form:input path="matricola" cssClass="form-control" required="true"/>
-                            <form:errors path="matricola" cssClass="integer-danger" />
+                            <form:input path="matricola" type="number" cssClass="form-control" required="true"/>
+                            <form:errors path="matricola" cssClass="text-danger" />
                         </div>
                         <div class="mb-3">
                             <form:label path="eta" cssClass="form-label">Età</form:label>
-                            <form:input path="eta" cssClass="form-control" required="true"/>
-                            <form:errors path="eta" cssClass="integer-danger" />
+                            <form:input path="eta" type="number" cssClass="form-control" required="true"/>
+                            <form:errors path="eta" cssClass="text-danger" />
                         </div>
                         <div class="mb-3">
                             <form:label path="cittaResidenza" cssClass="form-label">Città di Residenza</form:label>
