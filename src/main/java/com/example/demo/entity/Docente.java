@@ -32,4 +32,7 @@ public class Docente {
     private Date dataNascita;
 
 
+    public void setId(Long id) {
+        this.id=id;
+    }
 }
