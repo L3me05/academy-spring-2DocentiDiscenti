@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -21,47 +22,58 @@ public class DiscenteController {
 
     //Lista
     @GetMapping("/list")
-    public String list(Model model) {
+    public ModelAndView list() {
         List<Discente> discenti= discenteService.findAll();
-        model.addAttribute("discenti", discenti);
-        return "list-discenti";
+        ModelAndView modelAndView = new ModelAndView("list-discenti");
+        modelAndView.addObject("discenti", discenti);
+        return modelAndView;
     }
 
     //Nuovo
     @GetMapping("/new")
-    public String showAdd(Model model) {
-        model.addAttribute("discente", new Discente());
-        return "form-discente";
+    public ModelAndView showAdd() {
+        ModelAndView modelAndView= new ModelAndView("form-discente");
+        modelAndView.addObject("discente", new Discente());
+        return modelAndView;
     }
 
     @PostMapping
-    public String create(@ModelAttribute("discente") Discente discente, BindingResult br){
-        if(br.hasErrors()) return "form-discente";
+    public ModelAndView create(@ModelAttribute("discente") Discente discente, BindingResult br){
+        if(br.hasErrors()) {
+            ModelAndView mav= new ModelAndView("form-discente");
+            mav.addObject("discente", new Discente());
+            return mav;
+        }
         discenteService.save(discente);
-        return "redirect:/discenti/list";
+        return new ModelAndView("redirect:/discenti/list");
     }
 
 
     //Modifica
 
     @GetMapping("/{id}/edit")
-    public String showEdit(@PathVariable Long id, Model model) {
-        model.addAttribute("discente", discenteService.get(id));
-        return "form-discente";
+    public ModelAndView showEdit(@PathVariable Long id) {
+        ModelAndView modelAndView=new ModelAndView("form-discente");
+        modelAndView.addObject("discente", discenteService.get(id));
+        return modelAndView;
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute("discente") Discente discente, BindingResult br ) {
-        if(br.hasErrors()) return "form-discente";
+    public ModelAndView update(@PathVariable Long id, @ModelAttribute("discente") Discente discente, BindingResult br ) {
+        if(br.hasErrors()) {
+            ModelAndView mav=new ModelAndView("form-discente");
+            mav.addObject("discente", discenteService.get(id));
+            return mav;
+        }
         discente.setId(id);
         discenteService.save(discente);
-        return "redirect:/discenti/list";
+        return new ModelAndView("redirect:/discenti/list");
     }
 
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable Long id) {
+    public ModelAndView delete(@PathVariable Long id) {
         discenteService.delete(id);
-        return "redirect:/discenti/list";
+        return new  ModelAndView("redirect:/discenti/list");
     }
 
 
