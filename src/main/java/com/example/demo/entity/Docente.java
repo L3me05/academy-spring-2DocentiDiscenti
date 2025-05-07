@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor         //genera costruttore  con tutti i campi degli argomenti
 @Data                       //genera getters and setters ha bisogno di un argument constructor
 @Entity
+@ToString(exclude = "corsi")
 @Table(name = "docente")
 public class Docente {
 

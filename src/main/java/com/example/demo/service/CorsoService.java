@@ -18,10 +18,12 @@ public class CorsoService {
         return corsoRepository.findAll();
     }
 
+
     public Corso get(Long id) {
         return corsoRepository.findById(id).orElseThrow();
     }
 
+    @EntityGraph(attributePaths = {"docente", "discente"})
     public Corso save(Corso c){
         return corsoRepository.save(c);
     }

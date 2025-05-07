@@ -12,12 +12,16 @@
 <body>
     <div class="conteiner">
         <div class="nav">
-            <button>Home</button>
-            <button>Studente</button>
-            <button>Docente</button>
-            <button>Corso</button>
+            <a href="<c:url value='/home'/>"><button>Home</button></a>
+            <a href="<c:url value='/docenti/lista'/>"><button>Studente</button></a>
+            <a href="<c:url value='/discenti/list'/>"><button>Docente</button></a>
+            <a href="<c:url value='/corsi/list'/>"><button>Corso</button></a>
+
         </div>
 
+        <a href="<c:url value='/corsi/new'/>">
+                    <button class="btn">Nuovo Corso</button>
+        </a>
 
         <div class="card-container">
             <c:forEach var="corso" items="${corsi}">
@@ -25,23 +29,32 @@
                     <div class="corso">${corso.id} ${corso.nome} ${corso.annoAccademico} </div>
                     <div class="docente">
                         <c:if test="${not empty corso.docente}">
+                            <h5>Docente:<br></h5>
                             ${corso.docente.nome} ${corso.docente.cognome}
                         </c:if>
                     </div>
                     <div class="studenti">
+                        <h5>Partecipanti al corso:<br></h5>
                         <c:forEach var="discente" items="${corso.discenti}">
                             ${discente.nome} ${discente.cognome}<br/>
                         </c:forEach>
                     </div>
                     <div class="opzioni">
-                        <div class="modifica">Modifica</div>
-                        <div class="elimina">Elimina</div>
+                        <a href="<c:url value='/corsi/${corso.id}/edit'/>">
+                            <div class="modifica">Modifica</div>
+                        </a>
+                        <a href="<c:url value='/corsi/${corso.id}/delete'/>" onclick="return confirm('Sei sicuro?')">
+                            <div class="elimina">Elimina</div>
+                        </a>
+
+
                     </div>
                 </div>
             </c:forEach>
         </div>
 
-        <button class="btn">Nuovo</button>
+
+
     </div>
 
 

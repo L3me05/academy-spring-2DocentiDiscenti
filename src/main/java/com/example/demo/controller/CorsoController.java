@@ -7,8 +7,8 @@ import com.example.demo.service.DocenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,9 @@ import java.util.List;
 public class CorsoController {
     @Autowired
     CorsoService corsoService;
+    @Autowired
     DocenteService docenteService;
+    @Autowired
     DiscenteService discenteService;
 
     //lista
@@ -27,5 +29,51 @@ public class CorsoController {
         List<Corso> corsi= corsoService.findAll();
         model.addAttribute("corsi", corsi);
         return "corso-list";
+    }
+
+    @GetMapping("/new")
+    public String showAdd(Model model) {
+        model.addAttribute("corso", new Corso());
+        model.addAttribute("docenti", docenteService.findAll());
+        model.addAttribute("discenti", discenteService.findAll());
+        return "form-corso";
+    }
+
+    @PostMapping
+    public String create(@ModelAttribute("corso") Corso corso, BindingResult br, Model model){
+        if(br.hasErrors()) {
+            model.addAttribute("docenti", docenteService.findAll());
+            model.addAttribute("discenti", discenteService.findAll());
+            return "form-corso";
         }
+        corsoService.save(corso);
+        return "redirect:/corsi/list";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEdit(@PathVariable Long id, Model model){
+        model.addAttribute("corso", corsoService.get(id));
+        model.addAttribute("docenti", docenteService.findAll());
+        model.addAttribute("discenti", discenteService.findAll());
+        return "form-corso";
+    }
+
+    @PostMapping("/{id}")
+    public String update(@PathVariable Long id, @ModelAttribute("corso") Corso corso, BindingResult br, Model model) {
+        if(br.hasErrors()) {
+            model.addAttribute("docenti", docenteService.findAll());
+            model.addAttribute("discenti", discenteService.findAll());
+            return "form-corso";
+        }
+        corso.setId(id);
+        corsoService.save(corso);
+        return "redirect:/corsi/list";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        corsoService.delete(id);
+        return "redirect:/corsi/list";
+    }
+
 }
