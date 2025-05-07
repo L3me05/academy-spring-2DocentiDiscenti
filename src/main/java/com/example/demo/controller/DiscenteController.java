@@ -26,6 +26,15 @@ public class DiscenteController {
         List<Discente> discenti= discenteService.findAll();
         ModelAndView modelAndView = new ModelAndView("list-discenti");
         modelAndView.addObject("discenti", discenti);
+        modelAndView.addObject("nome", "");
+        return modelAndView;
+    }
+
+    @GetMapping("/cerca")
+    public ModelAndView cerca(@RequestParam("nome") String nome) {
+        ModelAndView modelAndView=new ModelAndView("list-discenti");
+        List<Discente> discenti = discenteService.findByName(nome);
+       modelAndView.addObject("discenti", discenti);
         return modelAndView;
     }
 

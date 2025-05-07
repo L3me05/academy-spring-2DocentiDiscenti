@@ -23,9 +23,21 @@ public class DocenteController {
     public String list(Model model) {                   //Il parametro Model model serve per passare dati alla vista (JSP)
         List<Docente> docenti = new ArrayList<>();
         docenti = docenteService.findAll();                         //Aggiunge la lista al modello per usarla nella JSP.
+        Long numeroDocenti = docenteService.contaDocenti();
         model.addAttribute("docenti", docenti);         // Aggiunge al modello la lista dei docenti con il nome "docenti".
+        model.addAttribute("numDocenti", numeroDocenti);
+        model.addAttribute("nome", "");
         return "list-docenti";
     }
+
+    @GetMapping("/cerca")
+    public String cerca(@RequestParam("nome") String nome, Model model) {
+        List<Docente> docenti = docenteService.findbyNome(nome);
+        model.addAttribute("docenti", docenti);
+        model.addAttribute("numDocenti", docenti.size());
+        return "list-docenti";
+    }
+
 
     // FORM NUOVO
     @GetMapping("/new")                                     //Questo metodo risponde a una richiesta GET all’URL /docenti/new

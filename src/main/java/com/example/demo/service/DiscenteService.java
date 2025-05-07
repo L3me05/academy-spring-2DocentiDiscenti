@@ -28,4 +28,7 @@ public class DiscenteService {
         discenteRepository.deleteById(id);
     }
 
+    public List<Discente> findByName(String nome) {
+        return discenteRepository.findByName(nome);
+    }
 }

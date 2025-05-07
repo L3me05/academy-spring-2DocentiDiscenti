@@ -13,7 +13,14 @@
 <h1>Elenco Discenti</h1>
 
 <a class="btn btn-primary mb-3" href="<c:url value='/home'/>">Home</a>
+<a class="btn btn-primary mb-3" href="<c:url value='/discenti/list'/>">Lista Completa</a>
 <a class="btn btn-primary mb-3" href="<c:url value='/discenti/new'/>">Nuovo Studente</a>
+<form action="${pageContext.request.contextPath}/discenti/cerca" method="get" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="nome" class="form-control" placeholder="Cerca per nome" required>
+        <button type="submit" class="btn btn-outline-primary">Cerca</button>
+    </div>
+</form>
 <table class="table table-striped">
     <thead>
     <tr>

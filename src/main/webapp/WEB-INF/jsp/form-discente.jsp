@@ -16,6 +16,8 @@
 
     <body>
         <div class="container mt-5">
+            <a class="btn btn-primary mb-3" href="<c:url value='/home'/>">Home</a>
+            <a class="btn btn-primary mb-3" href="<c:url value='/discenti/new'/>">Nuovo Studente</a>
             <div class="card">
                 <div class="card-header">
                     <h1>Form Studente</h1>

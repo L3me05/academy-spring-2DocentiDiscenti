@@ -16,6 +16,8 @@
 
     <body>
         <div class="container mt-5">
+            <a class="btn btn-primary mb-3" href="<c:url value='/home'/>">Home</a>
+            <a class="btn btn-primary mb-3" href="<c:url value='/docenti/lista'/>">Lista completa</a>
             <div class="card">
                 <div class="card-header">
                     <h1>Form Docente</h1>
