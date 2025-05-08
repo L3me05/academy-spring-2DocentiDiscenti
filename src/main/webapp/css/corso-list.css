@@ -15,32 +15,40 @@ body, html {
     width: 100%;
 }
 
-/* Navbar */
-.nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5em;
-    padding: 1em;
+.navbar {
     background-color: #007BFF;
+    padding: 1em 2em;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.nav button {
-    padding: 0.7em 1.4em;
-    border: none;
-    background-color: #ffffff33;
-    color: white;
-    border-radius: 0.6em;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-.nav button:hover {
-    background-color: #ffffff55;
+.navbar-brand {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
 }
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1.5em;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    padding: 0.5em 1em;
+    border-radius: 0.6em;
+}
+
+.navbar-links a:hover {
+    background-color: #0056b3;
+}
+
 
 
 .btn {

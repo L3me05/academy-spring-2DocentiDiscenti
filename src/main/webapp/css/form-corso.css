@@ -1,0 +1,45 @@
+
+body {
+    background-color: #f4f6f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.card {
+    border-radius: 1em;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+.form-label {
+    font-weight: 600;
+    color: #007BFF;
+}
+.btn-primary {
+    background-color: #007BFF;
+    border: none;
+    border-radius: 0.6em;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+.form-check-label {
+    margin-left: 0.3em;
+}
+h1 {
+    font-size: 1.8em;
+    color:#FFFFFF66;
+}
+.navbar {
+    background-color: #007BFF;
+}
+.navbar a {
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1em;
+}
+.navbar a:hover {
+    background-color: #0056b3;
+    border-radius: 0.6em;
+}
+.navbar .navbar-brand {
+    font-size: 1.4em;
+    font-weight: bold;
+}
