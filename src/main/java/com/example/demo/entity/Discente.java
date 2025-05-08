@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Data
@@ -47,4 +44,19 @@ public class Discente {
 
     @ManyToMany(mappedBy = "discenti")
     private List<Corso> corsi;
+
+
+    //Il metodo equals di java considera uguali due oggetti se hanno lo stesso indirizzo di memoria, così li consideriamo uguali se lo sono logicamente e non fisicamente
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Discente)) return false;
+        Discente that = (Discente) o;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

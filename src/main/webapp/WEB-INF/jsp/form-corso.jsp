@@ -48,7 +48,7 @@
                     <form:label path="discenti" cssClass="form-label">Discenti (multi)</form:label>
                     <c:forEach var="d" items="${discenti}">
                         <div class="form-check">
-                            <form:checkbox path="discenti" value="${d.id}" cssClass="form-check-input" id="discente-${d.id}" />
+                            <form:checkbox path="discenti" value="${d}" cssClass="form-check-input" id="discente-${d.id}" />
                             <label class="form-check-label" for="discente-${d.id}">
                                 ${d.nome} ${d.cognome}
                             </label>
