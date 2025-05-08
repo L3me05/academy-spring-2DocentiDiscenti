@@ -12,6 +12,7 @@
 <body>
 <div class="container mt-5">
     <a class="btn btn-primary mb-3" href="<c:url value='/home'/>">Home</a>
+    <a class="btn btn-primary mb-3" href="<c:url value='/corsi/list'/>">Corsi</a>
 
     <div class="card">
         <div class="card-header">

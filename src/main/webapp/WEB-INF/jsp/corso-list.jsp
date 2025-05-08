@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/corso-list.css">
 </head>
 <body>
-    <div class="conteiner">
+    <div class="container">
         <div class="nav">
             <a href="<c:url value='/home'/>"><button>Home</button></a>
             <a href="<c:url value='/docenti/lista'/>"><button>Studente</button></a>
