@@ -10,13 +10,15 @@ import java.util.List;
 public class CorsoDTO {
 
     private Long id;
-
     private String nome;
-
     private Integer annoAccademico;
 
-    private DocenteDTO docente;
+    //usato per il form
+    private Long docenteId;
+    private List<Long> discentiIds;
 
+    //usato per la lista
+    private DocenteDTO docente;
     private List<DiscenteDTO> discenti;
 
 
