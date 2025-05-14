@@ -1,8 +1,7 @@
-package com.example.demo.converter;
+package com.example.demo.util;
 
 import com.example.demo.data.dto.DiscenteDTO;
 import com.example.demo.data.entity.Discente;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class DiscenteConverter {
 

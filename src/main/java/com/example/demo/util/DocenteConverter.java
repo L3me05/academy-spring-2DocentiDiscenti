@@ -1,4 +1,4 @@
-package com.example.demo.converter;
+package com.example.demo.util;
 
 import com.example.demo.data.dto.DocenteDTO;
 import com.example.demo.data.entity.Docente;

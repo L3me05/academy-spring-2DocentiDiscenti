@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.data.dto.CorsoDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.service.CorsoService;
 import com.example.demo.service.DiscenteService;
@@ -25,21 +26,21 @@ public class CorsoController {
     //lista
     @GetMapping("/list")
     public String list(Model model) {
-        List<Corso> corsi= corsoService.findAll();
+        List<CorsoDTO> corsi= corsoService.findAll();
         model.addAttribute("corsi", corsi);
         return "corso-list";
     }
 
     @GetMapping("/new")
     public String showAdd(Model model) {
-        model.addAttribute("corso", new Corso());
+        model.addAttribute("corso", new CorsoDTO());
         model.addAttribute("docenti", docenteService.findAll());
         model.addAttribute("discenti", discenteService.findAll());
         return "form-corso";
     }
 
     @PostMapping
-    public String create(@ModelAttribute("corso") Corso corso, BindingResult br, Model model){
+    public String create(@ModelAttribute("corso") CorsoDTO corso, BindingResult br, Model model){
         if(br.hasErrors()) {
             model.addAttribute("docenti", docenteService.findAll());
             model.addAttribute("discenti", discenteService.findAll());
@@ -58,7 +59,7 @@ public class CorsoController {
     }
 
     @PostMapping("/{id}")
-    public String update(@ModelAttribute("corso") Corso corso, BindingResult br, Model model) {
+    public String update(@ModelAttribute("corso") CorsoDTO corso, BindingResult br, Model model) {
         if(br.hasErrors()) {
             model.addAttribute("docenti", docenteService.findAll());
             model.addAttribute("discenti", discenteService.findAll());

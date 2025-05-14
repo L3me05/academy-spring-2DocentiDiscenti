@@ -1,31 +1,41 @@
 package com.example.demo.service;
 
+import com.example.demo.data.dto.CorsoDTO;
 import com.example.demo.data.entity.Corso;
+import com.example.demo.mapstruct.CorsoMapper;
 import com.example.demo.repository.CorsoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CorsoService {
     @Autowired
     CorsoRepository corsoRepository;
+    @Autowired
+    CorsoMapper corsoMapper;
 
     @EntityGraph(attributePaths = {"docente", "discente"})
-    public List<Corso> findAll() {
-        return corsoRepository.findAll();
+    public List<CorsoDTO> findAll() {
+        return corsoRepository.findAll().stream()
+                .map(corsoMapper::corsoToDto)
+                .collect(Collectors.toList());
     }
 
 
-    public Corso get(Long id) {
-        return corsoRepository.findById(id).orElseThrow();
+    public CorsoDTO get(Long id) {
+        Corso corso =corsoRepository.findById(id).orElseThrow();
+        return corsoMapper.corsoToDto(corso);
     }
 
     @EntityGraph(attributePaths = {"docente", "discente"})
-    public Corso save(Corso c){
-        return corsoRepository.save(c);
+    public CorsoDTO save(CorsoDTO c){
+        Corso corso = corsoMapper.corsoToEntity(c);
+        Corso savedCorso = corsoRepository.save(corso);
+        return corsoMapper.corsoToDto(savedCorso);
     }
 
     public void delete(Long id) {

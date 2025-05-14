@@ -1,17 +1,12 @@
 package com.example.demo.data.dto;
 
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter
+@Getter
 public class CorsoDTO {
 
     private Long id;
@@ -20,5 +15,7 @@ public class CorsoDTO {
 
     private Integer annoAccademico;
 
+    private DocenteDTO docente;
 
+    private List<DiscenteDTO> discenti;
 }
