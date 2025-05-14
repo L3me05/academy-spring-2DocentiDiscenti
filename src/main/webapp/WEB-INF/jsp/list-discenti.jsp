@@ -18,7 +18,7 @@
             <a class="navbar-link ms-3" href="<c:url value='/discenti/list'/>">Lista Discenti</a>
             <a class="navbar-link ms-3" href="<c:url value='/docenti/lista'/>">Lista Docenti</a>
             <a class="navbar-link ms-3" href="<c:url value='/corsi/list'/>">Lista Corsi</a>
-            <a class="navbar-link ms-3" href="<c:url value='/discenti/new'/>">Nuovo Docente</a>
+            <a class="navbar-link ms-3" href="<c:url value='/discenti/new'/>">Nuovo Discente</a>
         </div>
     </div>
 </nav>
@@ -40,7 +40,6 @@
             <th>Nome</th>
             <th>Cognome</th>
             <th>Matricola</th>
-            <th>Età</th>
             <th>Città di Residenza</th>
             <th>Azioni</th>
         </tr>
@@ -52,7 +51,6 @@
                 <td>${d.nome}</td>
                 <td>${d.cognome}</td>
                 <td>${d.matricola}</td>
-                <td>${d.eta}</td>
                 <td>${d.cittaResidenza}</td>
                 <td>
                     <a class="btn btn-sm btn-secondary" href="<c:url value='/discenti/${d.id}/edit'/>">Modifica</a>

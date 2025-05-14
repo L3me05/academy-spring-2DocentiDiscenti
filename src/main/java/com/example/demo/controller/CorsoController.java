@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Corso;
+import com.example.demo.data.entity.Corso;
 import com.example.demo.service.CorsoService;
 import com.example.demo.service.DiscenteService;
 import com.example.demo.service.DocenteService;
@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -59,17 +58,19 @@ public class CorsoController {
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute("corso") Corso corso, @RequestParam(value = "discenti", required = false) List<Long> discenteIds, BindingResult br, Model model) {
+    public String update(@ModelAttribute("corso") Corso corso, BindingResult br, Model model) {
         if(br.hasErrors()) {
             model.addAttribute("docenti", docenteService.findAll());
             model.addAttribute("discenti", discenteService.findAll());
             return "form-corso";
         }
 
-        corso.setId(id);
+
         corsoService.save(corso);
         return "redirect:/corsi/list";
     }
+
+
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {

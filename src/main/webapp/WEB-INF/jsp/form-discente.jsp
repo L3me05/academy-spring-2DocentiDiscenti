@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -30,6 +31,7 @@
             </div>
             <div class="card-body">
                 <form:form action="${pageContext.request.contextPath}/discenti" method="post" modelAttribute="discente">
+                    <form:hidden path="id" />
                     <!-- Nome -->
                     <div class="mb-3">
                         <form:label path="nome" cssClass="form-label">Nome</form:label>
@@ -47,12 +49,6 @@
                         <form:label path="matricola" cssClass="form-label">Matricola</form:label>
                         <form:input path="matricola" type="number" cssClass="form-control" required="true"/>
                         <form:errors path="matricola" cssClass="text-danger" />
-                    </div>
-
-                    <div class="mb-3">
-                        <form:label path="eta" cssClass="form-label">Età</form:label>
-                        <form:input path="eta" type="number" cssClass="form-control" required="true"/>
-                        <form:errors path="eta" cssClass="text-danger" />
                     </div>
 
                     <div class="mb-3">

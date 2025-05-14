@@ -1,34 +1,65 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Discente;
+import com.example.demo.converter.DiscenteConverter;
+import com.example.demo.converter.DocenteConverter;
+import com.example.demo.data.dto.DiscenteDTO;
+import com.example.demo.data.entity.Corso;
+import com.example.demo.data.entity.Discente;
+import com.example.demo.data.entity.Docente;
+import com.example.demo.repository.CorsoRepository;
 import com.example.demo.repository.DiscenteRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 public class DiscenteService {
     @Autowired
     DiscenteRepository discenteRepository;
 
-    public List<Discente> findAll() {
-        return discenteRepository.findAll();
+    @Autowired
+    CorsoRepository corsoRepository;
+
+    public List<DiscenteDTO> findAll() {
+        return discenteRepository.findAll().stream()
+                .map(DiscenteConverter::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Discente get(Long id) {
-        return discenteRepository.findById(id).orElseThrow();
+    public DiscenteDTO get(Long id) {
+        Discente discente = discenteRepository.findById(id).orElseThrow();
+        return DiscenteConverter.toDTO(discente);
     }
 
-    public Discente save(Discente d){
-        return discenteRepository.save(d);
+    public DiscenteDTO save(DiscenteDTO d){
+        Discente discente = DiscenteConverter.toEntity(d);
+        Discente savedDiscente=discenteRepository.save(discente);
+        return DiscenteConverter.toDTO(savedDiscente);
     }
 
+    @Transactional
     public void delete(Long id){
-        discenteRepository.deleteById(id);
+        Discente discente = discenteRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Discente non trovato"));
+
+        List<Corso> corsi = corsoRepository.findByDiscente(discente);
+        for (Corso corso : corsi) {
+            corso.getDiscenti().remove(discente);
+        }
+        corsoRepository.saveAll(corsi);
+
+        discenteRepository.delete(discente);
+
     }
 
-    public List<Discente> findByName(String nome) {
-        return discenteRepository.findByName(nome);
+    public List<DiscenteDTO> findByName(String nome) {
+        return discenteRepository.findByName(nome).stream()
+                .map(DiscenteConverter::toDTO)
+                .collect(Collectors.toList());
     }
 }

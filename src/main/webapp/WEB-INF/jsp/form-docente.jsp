@@ -43,12 +43,6 @@
                         <form:errors path="cognome" cssClass="text-danger" />
                     </div>
 
-                    <div class="mb-3">
-                        <form:label path="dataNascita" cssClass="form-label">Data di Nascita</form:label>
-                        <form:input path="dataNascita" type="date" cssClass="form-control" required="true"/>
-                        <form:errors path="dataNascita" cssClass="text-danger" />
-                    </div>
-
                     <div class="mt-4 text-end">
                         <button type="submit" class="btn btn-primary">Salva Docente</button>
                     </div>

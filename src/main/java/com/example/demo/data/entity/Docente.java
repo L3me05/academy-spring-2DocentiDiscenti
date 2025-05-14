@@ -1,6 +1,5 @@
-package com.example.demo.entity;
+package com.example.demo.data.entity;
 
-import com.fasterxml.jackson.databind.DatabindException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +11,12 @@ import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor          //genera costruttore senza argomenti
-@AllArgsConstructor         //genera costruttore  con tutti i campi degli argomenti
+@AllArgsConstructor       //genera costruttore  con tutti i campi degli argomenti
 @Data                       //genera getters and setters ha bisogno di un argument constructor
 @Entity
 @ToString(exclude = "corsi")
 @Table(name = "docente")
+
 public class Docente {
 
     @Id
@@ -29,7 +29,7 @@ public class Docente {
     @Column(nullable = false)
     private String cognome;
 
-    @Column(nullable = false, name = "data_nascita")
+    @Column(nullable = true, name = "data_nascita")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")                                 // serve a Spring per interpretare la stringa
     private Date dataNascita;
@@ -38,5 +38,9 @@ public class Docente {
     private List<Corso> corsi;
 
 
-
+    public Docente(Long id, String nome, String cognome) {
+        this.id=id;
+        this.nome=nome;
+        this.cognome=cognome;
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Docente;
+import com.example.demo.data.dto.DocenteDTO;
+import com.example.demo.data.entity.Docente;
 import com.example.demo.service.DocenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,7 @@ public class DocenteController {
     // LISTA
     @GetMapping("/lista")                       //Questa annotazione dice a Spring: "Se arriva una richiesta GET all’URL /lista, esegui questo metodo.
     public String list(Model model) {                   //Il parametro Model model serve per passare dati alla vista (JSP)
-        List<Docente> docenti = new ArrayList<>();
-        docenti = docenteService.findAll();                         //Aggiunge la lista al modello per usarla nella JSP.
+        List<DocenteDTO> docenti = docenteService.findAll();        //Aggiunge la lista al modello per usarla nella JSP.
         Long numeroDocenti = docenteService.contaDocenti();
         model.addAttribute("docenti", docenti);         // Aggiunge al modello la lista dei docenti con il nome "docenti".
         model.addAttribute("numDocenti", numeroDocenti);
@@ -32,7 +32,7 @@ public class DocenteController {
 
     @GetMapping("/cerca")
     public String cerca(@RequestParam("nome") String nome, Model model) {
-        List<Docente> docenti = docenteService.findbyNome(nome);
+        List<DocenteDTO> docenti = docenteService.findbyNome(nome);
         model.addAttribute("docenti", docenti);
         model.addAttribute("numDocenti", docenti.size());
         return "list-docenti";
@@ -42,15 +42,15 @@ public class DocenteController {
     // FORM NUOVO
     @GetMapping("/new")                                     //Questo metodo risponde a una richiesta GET all’URL /docenti/new
     public String showAdd(Model model) {                                //restituisce il nome della vista JSP e accetta un Model per passare dati al frontend.
-        model.addAttribute("docente", new Docente());          //Crea un oggetto vuoto di tipo Docente e lo aggiunge al modello con il nome "docente". new Docente(): Crea un oggetto vuoto per collegarlo al form con form:form.
+        model.addAttribute("docente", new DocenteDTO());          //Crea un oggetto vuoto di tipo Docente e lo aggiunge al modello con il nome "docente". new Docente(): Crea un oggetto vuoto per collegarlo al form con form:form.
         return "form-docente";
     }
 
     // SALVA NUOVO
     @PostMapping                                                            //indica che questo metodo gestisce le richieste POST (invio di un form) all’URL /docenti                               //@PostMapping: Gestisce l’invio del form.
-    public String create(@ModelAttribute("docente") Docente  docente, BindingResult br) {            //@ModelAttribute("docente"): Prende i dati del form e li converte in un oggetto Docente
+    public String create(@ModelAttribute("docente") DocenteDTO  docenteDTO, BindingResult br) {            //@ModelAttribute("docente"): Prende i dati del form e li converte in un oggetto Docente
         if (br.hasErrors()) return "form-docente";                                           //Se ci sono errori nei dati inviati, non salva, ma torna al form (form-docente.jsp) per far correggere gli errori all’utente.
-        docenteService.save(docente);
+        docenteService.save(docenteDTO);
         return "redirect:/docenti/lista";
     }
 
@@ -64,10 +64,10 @@ public class DocenteController {
 
     // AGGIORNA
     @PostMapping("/{id}")                                                                                                   //Gestisce l’invio del form modificato con una richiesta POST
-    public String update(@PathVariable Long id, @ModelAttribute("docente") Docente docente, BindingResult br) {                 //@ModelAttribute("docente"): Spring crea un oggetto Docente con i valori del form.
+    public String update(@PathVariable Long id, @ModelAttribute("docente") DocenteDTO docenteDTO, BindingResult br) {                 //@ModelAttribute("docente"): Spring crea un oggetto Docente con i valori del form.
         if (br.hasErrors()) return "form-docente";
-        docente.setId(id);                                                                                                  //docente.setId(id): imposta l’ID corretto (serve se non è passato nel form).
-        docenteService.save(docente);                                                                           //salva e aggiorna il db
+        docenteDTO.setId(id);                                                                                                  //docente.setId(id): imposta l’ID corretto (serve se non è passato nel form).
+        docenteService.save(docenteDTO);                                                                           //salva e aggiorna il db
         return "redirect:/docenti/lista";
     }
 

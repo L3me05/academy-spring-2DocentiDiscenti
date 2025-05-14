@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.data.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,7 +30,7 @@ public class Discente {
     @Column(nullable = false)
     private Integer matricola;
 
-    @Column(nullable = false, name = "età")
+    @Column(nullable = true, name = "età")
     private Integer eta;
 
     @Column(nullable = false, name= "città_residenza")
@@ -45,6 +45,13 @@ public class Discente {
     @ManyToMany(mappedBy = "discenti")
     private List<Corso> corsi;
 
+    public Discente(Long id, String nome, String cognome, Integer matricola, String cittaResidenza) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.matricola = matricola;
+        this.cittaResidenza = cittaResidenza;
+    }
 
     //Il metodo equals di java considera uguali due oggetti se hanno lo stesso indirizzo di memoria, così li consideriamo uguali se lo sono logicamente e non fisicamente
     @Override

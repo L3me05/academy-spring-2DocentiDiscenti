@@ -41,7 +41,6 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Cognome</th>
-                <th>Data di Nascita</th>
                 <th>Azioni</th>
             </tr>
         </thead>
@@ -51,7 +50,6 @@
                     <td>${d.id}</td>
                     <td>${d.nome}</td>
                     <td>${d.cognome}</td>
-                    <td>${d.dataNascita}</td>
                     <td>
                         <a class="btn btn-sm btn-secondary" href="<c:url value='/docenti/${d.id}/edit'/>">Modifica</a>
                         <a class="btn btn-sm btn-danger" href="<c:url value='/docenti/${d.id}/delete'/>"

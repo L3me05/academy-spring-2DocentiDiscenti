@@ -1,12 +1,11 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.entity.Discente;
-import com.example.demo.entity.Docente;
+import com.example.demo.data.dto.DiscenteDTO;
+import com.example.demo.data.entity.Discente;
 import com.example.demo.service.DiscenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +22,7 @@ public class DiscenteController {
     //Lista
     @GetMapping("/list")
     public ModelAndView list() {
-        List<Discente> discenti= discenteService.findAll();
+        List<DiscenteDTO> discenti= discenteService.findAll();
         ModelAndView modelAndView = new ModelAndView("list-discenti");
         modelAndView.addObject("discenti", discenti);
         modelAndView.addObject("nome", "");
@@ -33,7 +32,7 @@ public class DiscenteController {
     @GetMapping("/cerca")
     public ModelAndView cerca(@RequestParam("nome") String nome) {
         ModelAndView modelAndView=new ModelAndView("list-discenti");
-        List<Discente> discenti = discenteService.findByName(nome);
+        List<DiscenteDTO> discenti = discenteService.findByName(nome);
        modelAndView.addObject("discenti", discenti);
         return modelAndView;
     }
@@ -42,18 +41,18 @@ public class DiscenteController {
     @GetMapping("/new")
     public ModelAndView showAdd() {
         ModelAndView modelAndView= new ModelAndView("form-discente");
-        modelAndView.addObject("discente", new Discente());
+        modelAndView.addObject("discente", new DiscenteDTO());
         return modelAndView;
     }
 
     @PostMapping
-    public ModelAndView create(@ModelAttribute("discente") Discente discente, BindingResult br){
+    public ModelAndView create(@ModelAttribute("discente") DiscenteDTO discenteDTO, BindingResult br){
         if(br.hasErrors()) {
             ModelAndView mav= new ModelAndView("form-discente");
-            mav.addObject("discente", new Discente());
+            mav.addObject("discente", new DiscenteDTO());
             return mav;
         }
-        discenteService.save(discente);
+        discenteService.save(discenteDTO);
         return new ModelAndView("redirect:/discenti/list");
     }
 
@@ -68,14 +67,14 @@ public class DiscenteController {
     }
 
     @PostMapping("/{id}")
-    public ModelAndView update(@PathVariable Long id, @ModelAttribute("discente") Discente discente, BindingResult br ) {
+    public ModelAndView update(@PathVariable Long id, @ModelAttribute("discente") DiscenteDTO discenteDTO, BindingResult br ) {
         if(br.hasErrors()) {
             ModelAndView mav=new ModelAndView("form-discente");
             mav.addObject("discente", discenteService.get(id));
             return mav;
         }
-        discente.setId(id);
-        discenteService.save(discente);
+        discenteDTO.setId(id);
+        discenteService.save(discenteDTO);
         return new ModelAndView("redirect:/discenti/list");
     }
 
