@@ -66,4 +66,5 @@ public class Discente {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

@@ -2,17 +2,13 @@ package com.example.demo.data.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 @ToString(exclude = {"docente", "discenti"})
 public class Corso {
 
@@ -37,6 +33,9 @@ public class Corso {
     )
     private List<Discente> discenti;
 
+
 //    @ManyToMany(mappedBy = "corsi")
 //    private Set<Discente> discenti=new HashSet<>();
+
+
 }
