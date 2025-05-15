@@ -19,5 +19,6 @@ public interface CorsoRepository extends JpaRepository<Corso, Long>{
     @Query("SELECT c FROM Corso c WHERE :discente MEMBER OF c.discenti")
     List<Corso> findByDiscente(@Param("discente") Discente discente);
 
+
 }
 
