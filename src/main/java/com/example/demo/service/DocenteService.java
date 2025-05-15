@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.util.DocenteConverter;
+import com.example.demo.modelMapper.DocenteModelMapper;
 import com.example.demo.data.dto.DocenteDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Docente;
@@ -24,22 +24,26 @@ public class DocenteService {
     @Autowired
     CorsoRepository corsoRepository;
 
+    @Autowired
+    DocenteModelMapper mapper;
+
+
     public List<DocenteDTO> findAll() {
         return docenteRepository.findAll().stream()                 //.stream converte la lista in una sequenza di dati che puoi elaborare in maniera funzionale
-                .map(DocenteConverter::toDTO)                       //per ogni docente richiama il metodo statico che converte in DTO
+                .map(docente -> mapper.docenteToDto(docente))                       //per ogni docente richiama il metodo statico che converte in DTO
                 .collect(Collectors.toList());                  //Converte lo stream in una list
     }
 
     public DocenteDTO get(Long id) {
         Docente docente =docenteRepository.findById(id)
                 .orElseThrow();
-        return DocenteConverter.toDTO(docente);
+        return mapper.docenteToDto(docente);
     }
 
     public DocenteDTO save(DocenteDTO d) {
-        Docente docente = DocenteConverter.toEntity(d);
+        Docente docente = mapper.docenteToEntity(d);
         Docente savedDocente = docenteRepository.save(docente);
-        return DocenteConverter.toDTO(savedDocente);
+        return mapper.docenteToDto(savedDocente);
     }
 
     @Transactional
@@ -66,7 +70,7 @@ public class DocenteService {
 
     public List<DocenteDTO> findbyNome(String nome) {
         return docenteRepository.findByNome(nome).stream()
-                .map(DocenteConverter::toDTO)
+                .map(docente -> mapper.docenteToDto(docente))
                 .collect(Collectors.toList());
     }
 }

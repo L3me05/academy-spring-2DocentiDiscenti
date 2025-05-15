@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.util.DiscenteConverter;
+import com.example.demo.modelMapper.DiscenteModelMapper;
 import com.example.demo.data.dto.DiscenteDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Discente;
@@ -22,21 +22,24 @@ public class DiscenteService {
     @Autowired
     CorsoRepository corsoRepository;
 
+    @Autowired
+    DiscenteModelMapper mapper;
+
     public List<DiscenteDTO> findAll() {
         return discenteRepository.findAll().stream()
-                .map(DiscenteConverter::toDTO)
+                .map(discente -> mapper.discenteToDto(discente))
                 .collect(Collectors.toList());
     }
 
     public DiscenteDTO get(Long id) {
         Discente discente = discenteRepository.findById(id).orElseThrow();
-        return DiscenteConverter.toDTO(discente);
+        return mapper.discenteToDto(discente);
     }
 
     public DiscenteDTO save(DiscenteDTO d){
-        Discente discente = DiscenteConverter.toEntity(d);
+        Discente discente = mapper.discenteToEntity(d);
         Discente savedDiscente=discenteRepository.save(discente);
-        return DiscenteConverter.toDTO(savedDiscente);
+        return mapper.discenteToDto(savedDiscente);
     }
 
     @Transactional
@@ -54,9 +57,10 @@ public class DiscenteService {
 
     }
 
+
     public List<DiscenteDTO> findByName(String nome) {
         return discenteRepository.findByName(nome).stream()
-                .map(DiscenteConverter::toDTO)
+                .map(discente -> mapper.discenteToDto(discente))
                 .collect(Collectors.toList());
     }
 }
