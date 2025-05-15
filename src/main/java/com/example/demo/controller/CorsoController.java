@@ -27,7 +27,7 @@ public class CorsoController {
     @GetMapping("/list")
     public String list(Model model) {
         List<CorsoDTO> corsi= corsoService.findAll();
-        corsi.forEach(c -> System.out.println("DTO: " + c.getNome()));
+        //corsi.forEach(c -> System.out.println("DTO: " + c.getNome()));
         model.addAttribute("corsi", corsi);
         return "corso-list";
     }
