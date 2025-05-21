@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.util.DocenteConverter;
+import com.example.demo.mapstruct.DiscenteMapper;
+import com.example.demo.mapstruct.DocenteMapper;
 import com.example.demo.data.dto.DocenteDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Docente;
@@ -23,23 +24,26 @@ public class DocenteService {
 
     @Autowired
     CorsoRepository corsoRepository;
+    
+    @Autowired
+    DocenteMapper  docenteMapper;
 
     public List<DocenteDTO> findAll() {
         return docenteRepository.findAll().stream()
-                .map(DocenteConverter::toDTO)
+                .map(docenteMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     public DocenteDTO get(Long id) {
         Docente docente =docenteRepository.findById(id)
                 .orElseThrow();
-        return DocenteConverter.toDTO(docente);
+        return docenteMapper.toDto(docente);
     }
 
     public DocenteDTO save(DocenteDTO d) {
-        Docente docente = DocenteConverter.toEntity(d);
+        Docente docente = docenteMapper.toEntity(d);
         Docente savedDocente = docenteRepository.save(docente);
-        return DocenteConverter.toDTO(savedDocente);
+        return docenteMapper.toDto(savedDocente);
     }
 
     public DocenteDTO update(Long id, DocenteDTO d ) {
@@ -48,7 +52,7 @@ public class DocenteService {
         if(d.getNome()!=null) docente.setNome(d.getNome());
         if(d.getCognome()!=null) docente.setCognome(d.getCognome());
         Docente savedDocente = docenteRepository.save(docente);
-        return DocenteConverter.toDTO(savedDocente);
+        return docenteMapper.toDto(savedDocente);
     }
 
     @Transactional
@@ -75,7 +79,7 @@ public class DocenteService {
 
     public List<DocenteDTO> findbyNome(String nome) {
         return docenteRepository.findByNome(nome).stream()
-                .map(DocenteConverter::toDTO)
+                .map(docenteMapper::toDto)
                 .collect(Collectors.toList());
     }
 }

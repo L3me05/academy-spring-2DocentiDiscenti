@@ -8,4 +8,5 @@ import org.mapstruct.Mapper;
 public interface DiscenteMapper {
     DiscenteDTO toDto(Discente discente);
     Discente toEntity(DiscenteDTO dto);
+
 }

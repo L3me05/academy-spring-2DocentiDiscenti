@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/corsi")
 public class CorsoController {
     @Autowired
@@ -25,31 +25,34 @@ public class CorsoController {
 
     //lista
     @GetMapping("/list")
-    public String list(Model model) {
-        List<CorsoDTO> corsi= corsoService.findAll();
-        corsi.forEach(c -> System.out.println("DTO: " + c.getNome()));
-        model.addAttribute("corsi", corsi);
-        return "corso-list";
-    }
+    public List<CorsoDTO> list() {
+        return corsoService.findAll();
 
-    @GetMapping("/new")
-    public String showAdd(Model model) {
-        model.addAttribute("corso", new CorsoDTO());
-        model.addAttribute("docenti", docenteService.findAll());
-        model.addAttribute("discenti", discenteService.findAll());
-        return "form-corso";
     }
 
     @PostMapping
-    public String create(@ModelAttribute("corso") CorsoDTO corso, BindingResult br, Model model){
-        if(br.hasErrors()) {
-            model.addAttribute("docenti", docenteService.findAll());
-            model.addAttribute("discenti", discenteService.findAll());
-            return "form-corso";
-        }
-        corsoService.save(corso);
-        return "redirect:/corsi/list";
+    public CorsoDTO create(@RequestBody CorsoDTO corsoDTO) {
+        return corsoService.save(corsoDTO);
     }
+
+//    @GetMapping("/new")
+//    public String showAdd(Model model) {
+//        model.addAttribute("corso", new CorsoDTO());
+//        model.addAttribute("docenti", docenteService.findAll());
+//        model.addAttribute("discenti", discenteService.findAll());
+//        return "form-corso";
+//    }
+
+//    @PostMapping
+//    public String create(@ModelAttribute("corso") CorsoDTO corso, BindingResult br, Model model){
+//        if(br.hasErrors()) {
+//            model.addAttribute("docenti", docenteService.findAll());
+//            model.addAttribute("discenti", discenteService.findAll());
+//            return "form-corso";
+//        }
+//        corsoService.save(corso);
+//        return "redirect:/corsi/list";
+//    }
 
     @GetMapping("/{id}/edit")
     public String showEdit(@PathVariable Long id, Model model){

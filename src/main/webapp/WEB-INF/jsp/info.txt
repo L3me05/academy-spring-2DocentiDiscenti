@@ -1,1 +1,0 @@
-                                       Quando usi @ModelAttribute("docente"), Spring costruisce un nuovo oggetto Docente basato solo sui campi che riceve dal form. Se il campo id non è presente, Spring pensa che sia un nuovo oggetto da inserire (e non da aggiornare).

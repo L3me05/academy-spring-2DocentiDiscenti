@@ -43,4 +43,9 @@ public class Docente {
         this.nome=nome;
         this.cognome=cognome;
     }
+
+    public Docente(String nome, String cognome) {
+        this.nome = nome;
+        this.cognome = cognome;
+    }
 }
