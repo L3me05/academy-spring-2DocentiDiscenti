@@ -39,6 +39,17 @@ public class DiscenteService {
         return DiscenteConverter.toDTO(savedDiscente);
     }
 
+    public DiscenteDTO update(Long id, DiscenteDTO discenteDTO) {
+        Discente discente = discenteRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Discente non trovato"));
+        if(discenteDTO.getNome()!=null) discente.setNome(discenteDTO.getNome());
+        if(discenteDTO.getCognome()!=null) discente.setCognome(discenteDTO.getCognome());
+        if(discenteDTO.getMatricola()!=null) discente.setMatricola(discenteDTO.getMatricola());
+        if(discenteDTO.getCittaResidenza()!=null) discente.setCittaResidenza(discenteDTO.getCittaResidenza());
+        Discente savedDiscente = discenteRepository.save(discente);
+        return DiscenteConverter.toDTO(savedDiscente);
+    }
+
     @Transactional
     public void delete(Long id){
         Discente discente = discenteRepository.findById(id)

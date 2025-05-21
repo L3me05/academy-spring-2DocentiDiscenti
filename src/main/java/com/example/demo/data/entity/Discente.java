@@ -21,19 +21,19 @@ public class Discente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String cognome;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer matricola;
 
     @Column(nullable = true, name = "età")
     private Integer eta;
 
-    @Column(nullable = false, name= "città_residenza")
+    @Column(nullable = true, name= "città_residenza")
     private String cittaResidenza;
 
 //    @ManyToMany

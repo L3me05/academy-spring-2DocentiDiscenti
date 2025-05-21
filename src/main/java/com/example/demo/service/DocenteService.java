@@ -25,9 +25,9 @@ public class DocenteService {
     CorsoRepository corsoRepository;
 
     public List<DocenteDTO> findAll() {
-        return docenteRepository.findAll().stream()                 //.stream converte la lista in una sequenza di dati che puoi elaborare in maniera funzionale
-                .map(DocenteConverter::toDTO)                       //per ogni docente richiama il metodo statico che converte in DTO
-                .collect(Collectors.toList());                  //Converte lo stream in una list
+        return docenteRepository.findAll().stream()
+                .map(DocenteConverter::toDTO)
+                .collect(Collectors.toList());
     }
 
     public DocenteDTO get(Long id) {
@@ -38,6 +38,15 @@ public class DocenteService {
 
     public DocenteDTO save(DocenteDTO d) {
         Docente docente = DocenteConverter.toEntity(d);
+        Docente savedDocente = docenteRepository.save(docente);
+        return DocenteConverter.toDTO(savedDocente);
+    }
+
+    public DocenteDTO update(Long id, DocenteDTO d ) {
+        Docente docente = docenteRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Docente non trovato"));
+        if(d.getNome()!=null) docente.setNome(d.getNome());
+        if(d.getCognome()!=null) docente.setCognome(d.getCognome());
         Docente savedDocente = docenteRepository.save(docente);
         return DocenteConverter.toDTO(savedDocente);
     }

@@ -23,10 +23,10 @@ public class Docente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String cognome;
 
     @Column(nullable = true, name = "data_nascita")
