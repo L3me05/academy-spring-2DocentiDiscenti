@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.util.DiscenteConverter;
 import com.example.demo.data.dto.DiscenteDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Discente;
+import com.example.demo.mapstruct.DiscenteMapper;
 import com.example.demo.repository.CorsoRepository;
 import com.example.demo.repository.DiscenteRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -21,22 +21,25 @@ public class DiscenteService {
 
     @Autowired
     CorsoRepository corsoRepository;
+    
+    @Autowired
+    DiscenteMapper discenteMapper;
 
     public List<DiscenteDTO> findAll() {
         return discenteRepository.findAll().stream()
-                .map(DiscenteConverter::toDTO)
+                .map(discenteMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     public DiscenteDTO get(Long id) {
         Discente discente = discenteRepository.findById(id).orElseThrow();
-        return DiscenteConverter.toDTO(discente);
+        return discenteMapper.toDto(discente);
     }
 
     public DiscenteDTO save(DiscenteDTO d){
-        Discente discente = DiscenteConverter.toEntity(d);
+        Discente discente = discenteMapper.toEntity(d);
         Discente savedDiscente=discenteRepository.save(discente);
-        return DiscenteConverter.toDTO(savedDiscente);
+        return discenteMapper.toDto(savedDiscente);
     }
 
     @Transactional
@@ -56,7 +59,7 @@ public class DiscenteService {
 
     public List<DiscenteDTO> findByName(String nome) {
         return discenteRepository.findByName(nome).stream()
-                .map(DiscenteConverter::toDTO)
+                .map(discenteMapper::toDto)
                 .collect(Collectors.toList());
     }
 }

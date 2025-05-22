@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.util.DocenteConverter;
 import com.example.demo.data.dto.DocenteDTO;
 import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Docente;
+import com.example.demo.mapstruct.DocenteMapper;
 import com.example.demo.repository.CorsoRepository;
 import com.example.demo.repository.DocenteRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,23 +23,26 @@ public class DocenteService {
 
     @Autowired
     CorsoRepository corsoRepository;
+    
+    @Autowired
+    DocenteMapper docenteMapper;
 
     public List<DocenteDTO> findAll() {
         return docenteRepository.findAll().stream()                 //.stream converte la lista in una sequenza di dati che puoi elaborare in maniera funzionale
-                .map(DocenteConverter::toDTO)                       //per ogni docente richiama il metodo statico che converte in DTO
+                .map(docenteMapper::toDto)                       //per ogni docente richiama il metodo statico che converte in DTO
                 .collect(Collectors.toList());                  //Converte lo stream in una list
     }
 
     public DocenteDTO get(Long id) {
         Docente docente =docenteRepository.findById(id)
                 .orElseThrow();
-        return DocenteConverter.toDTO(docente);
+        return docenteMapper.toDto(docente);
     }
 
     public DocenteDTO save(DocenteDTO d) {
-        Docente docente = DocenteConverter.toEntity(d);
+        Docente docente = docenteMapper.toEntity(d);
         Docente savedDocente = docenteRepository.save(docente);
-        return DocenteConverter.toDTO(savedDocente);
+        return docenteMapper.toDto(savedDocente);
     }
 
     @Transactional
@@ -66,7 +69,7 @@ public class DocenteService {
 
     public List<DocenteDTO> findbyNome(String nome) {
         return docenteRepository.findByNome(nome).stream()
-                .map(DocenteConverter::toDTO)
+                .map(docenteMapper::toDto)
                 .collect(Collectors.toList());
     }
 }
