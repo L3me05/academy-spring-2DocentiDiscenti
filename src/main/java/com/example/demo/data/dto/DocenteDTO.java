@@ -14,9 +14,8 @@ public class DocenteDTO {
 
 
     private String nome;
-
     private String cognome;
-
+    private String dataNascita;
 
 
 }

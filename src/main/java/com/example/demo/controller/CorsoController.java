@@ -35,52 +35,15 @@ public class CorsoController {
         return corsoService.save(corsoDTO);
     }
 
-//    @GetMapping("/new")
-//    public String showAdd(Model model) {
-//        model.addAttribute("corso", new CorsoDTO());
-//        model.addAttribute("docenti", docenteService.findAll());
-//        model.addAttribute("discenti", discenteService.findAll());
-//        return "form-corso";
-//    }
-
-//    @PostMapping
-//    public String create(@ModelAttribute("corso") CorsoDTO corso, BindingResult br, Model model){
-//        if(br.hasErrors()) {
-//            model.addAttribute("docenti", docenteService.findAll());
-//            model.addAttribute("discenti", discenteService.findAll());
-//            return "form-corso";
-//        }
-//        corsoService.save(corso);
-//        return "redirect:/corsi/list";
-//    }
-
-    @GetMapping("/{id}/edit")
-    public String showEdit(@PathVariable Long id, Model model){
-        model.addAttribute("corso", corsoService.get(id));
-        model.addAttribute("docenti", docenteService.findAll());
-        model.addAttribute("discenti", discenteService.findAll());
-        return "form-corso";
+    @PutMapping("/{id}")
+    public CorsoDTO update(@PathVariable Long id, @RequestBody CorsoDTO corsoDTO) {
+        return corsoService.update(id, corsoDTO);
     }
 
-    @PostMapping("/{id}")
-    public String update(@ModelAttribute("corso") CorsoDTO corso, BindingResult br, Model model) {
-        if(br.hasErrors()) {
-            model.addAttribute("docenti", docenteService.findAll());
-            model.addAttribute("discenti", discenteService.findAll());
-            return "form-corso";
-        }
-
-
-        corsoService.save(corso);
-        return "redirect:/corsi/list";
-    }
-
-
-
-    @GetMapping("/{id}/delete")
-    public String delete(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
         corsoService.delete(id);
-        return "redirect:/corsi/list";
     }
+
 
 }
