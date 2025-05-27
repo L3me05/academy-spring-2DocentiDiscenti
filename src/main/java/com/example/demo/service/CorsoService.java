@@ -111,8 +111,8 @@ public class CorsoService {
         if(corsoDTO.getNome()!=null) corso.setNome(corsoDTO.getNome());
         if (corsoDTO.getAnnoAccademico()!=null) corso.setAnnoAccademico(corsoDTO.getAnnoAccademico());
 
-        corso.setDocente(getOrCreateDocente(corsoDTO.getDocenteDTOLight()));
-        corso.setDiscenti(getOrCreateDiscenti(corsoDTO.getDiscentiDTOLight()));
+        if(corsoDTO.getDocenteDTOLight()!=null) corso.setDocente(getOrCreateDocente(corsoDTO.getDocenteDTOLight()));
+        if(corsoDTO.getDiscentiDTOLight()!=null) corso.setDiscenti(getOrCreateDiscenti(corsoDTO.getDiscentiDTOLight()));
 
         Corso savedCorso = corsoRepository.save(corso);
         return corsoMapper.corsoToDto(savedCorso);
