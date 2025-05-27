@@ -10,6 +10,5 @@ public interface DiscenteMapper {
     DiscenteDTO toDto(Discente discente);
     Discente toEntity(DiscenteDTO dto);
 
-    DiscenteDTOLight toDtoLight(Discente discente);
-    Discente toEntityLight(DiscenteDTOLight dto);
+
 }
