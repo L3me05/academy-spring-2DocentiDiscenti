@@ -1,7 +1,6 @@
 spring:
   application:
     name: demo
-  mvc:
   datasource:
     url: jdbc:postgresql://localhost:5432/academy_elite
     username: postgres

@@ -1,11 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.mapstruct.DiscenteMapper;
 import com.example.demo.mapstruct.DocenteMapper;
 import com.example.demo.data.dto.DocenteDTO;
-import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Docente;
-import com.example.demo.repository.CorsoRepository;
 import com.example.demo.repository.DocenteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -22,9 +19,6 @@ public class DocenteService {
     @Autowired
     DocenteRepository docenteRepository;
 
-    @Autowired
-    CorsoRepository corsoRepository;
-    
     @Autowired
     DocenteMapper  docenteMapper;
 
@@ -60,15 +54,6 @@ public class DocenteService {
         // Prima recuperi il docente
         Docente docente = docenteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Docente non trovato"));
-
-        // Setti a null tutti i corsi che lo referenziano
-        List<Corso> corsi = corsoRepository.findByDocente(docente);
-        for (Corso corso : corsi) {
-            corso.setDocente(null);
-        }
-        corsoRepository.saveAll(corsi);
-
-        // Poi elimini il docente
         docenteRepository.delete(docente);
     }
 

@@ -12,7 +12,6 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "corsi")
 @Entity
 @Table(name = "discente")
 public class Discente {
@@ -36,8 +35,6 @@ public class Discente {
     @Column(nullable = true, name= "città_residenza")
     private String cittaResidenza;
 
-    @ManyToMany(mappedBy = "discenti")
-    private List<Corso> corsi;
 
 
 

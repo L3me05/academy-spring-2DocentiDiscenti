@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor       //genera costruttore  con tutti i campi degli argomenti
 @Data                       //genera getters and setters ha bisogno di un argument constructor
 @Entity
-@ToString(exclude = "corsi")
 @Table(name = "docente")
 
 public class Docente {
@@ -34,18 +33,5 @@ public class Docente {
     @DateTimeFormat(pattern = "yyyy-MM-dd")                                 // serve a Spring per interpretare la stringa
     private Date dataNascita;
 
-    @OneToMany(mappedBy = "docente")
-    private List<Corso> corsi;
 
-
-    public Docente(Long id, String nome, String cognome) {
-        this.id=id;
-        this.nome=nome;
-        this.cognome=cognome;
-    }
-
-    public Docente(String nome, String cognome) {
-        this.nome = nome;
-        this.cognome = cognome;
-    }
 }

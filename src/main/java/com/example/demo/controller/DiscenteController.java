@@ -2,14 +2,10 @@ package com.example.demo.controller;
 
 
 import com.example.demo.data.dto.DiscenteDTO;
-import com.example.demo.data.dto.DocenteDTO;
-import com.example.demo.data.entity.Discente;
+
 import com.example.demo.service.DiscenteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 

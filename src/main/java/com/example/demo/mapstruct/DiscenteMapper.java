@@ -1,7 +1,6 @@
 package com.example.demo.mapstruct;
 
 import com.example.demo.data.dto.DiscenteDTO;
-import com.example.demo.data.dto.DiscenteDTOLight;
 import com.example.demo.data.entity.Discente;
 import org.mapstruct.Mapper;
 

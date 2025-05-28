@@ -18,5 +18,4 @@ public interface DocenteRepository extends JpaRepository<Docente, Long> {
     @Query("SELECT d FROM Docente d WHERE d.nome = :nome")
     List<Docente> findByNome(@Param("nome") String nome);
 
-    Docente findByNomeAndCognome(String nome, String cognome);
 }

@@ -1,10 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.data.dto.DiscenteDTO;
-import com.example.demo.data.entity.Corso;
 import com.example.demo.data.entity.Discente;
 import com.example.demo.mapstruct.DiscenteMapper;
-import com.example.demo.repository.CorsoRepository;
 import com.example.demo.repository.DiscenteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -19,9 +17,6 @@ public class DiscenteService {
     @Autowired
     DiscenteRepository discenteRepository;
 
-    @Autowired
-    CorsoRepository corsoRepository;
-    
     @Autowired
     DiscenteMapper discenteMapper;
 
@@ -57,13 +52,6 @@ public class DiscenteService {
     public void delete(Long id){
         Discente discente = discenteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Discente non trovato"));
-
-        List<Corso> corsi = corsoRepository.findByDiscente(discente);
-        for (Corso corso : corsi) {
-            corso.getDiscenti().remove(discente);
-        }
-        corsoRepository.saveAll(corsi);
-
         discenteRepository.delete(discente);
 
     }
