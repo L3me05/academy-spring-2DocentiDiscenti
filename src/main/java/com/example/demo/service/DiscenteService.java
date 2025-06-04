@@ -26,7 +26,7 @@ public class DiscenteService {
                 .collect(Collectors.toList());
     }
 
-    public DiscenteDTO get(Long id) {
+    public DiscenteDTO findById(Long id) {
         Discente discente = discenteRepository.findById(id).orElseThrow();
         return discenteMapper.toDto(discente);
     }

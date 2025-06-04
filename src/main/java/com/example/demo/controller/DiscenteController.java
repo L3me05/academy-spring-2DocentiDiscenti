@@ -22,6 +22,11 @@ public class DiscenteController {
         return discenteService.findAll();
     }
 
+    @GetMapping("/findById")
+    public DiscenteDTO findById(@RequestParam Long id) {
+        return discenteService.findById(id);
+    }
+
     @PostMapping
     public DiscenteDTO create(@RequestBody DiscenteDTO discenteDTO) {
         return discenteService.save(discenteDTO);

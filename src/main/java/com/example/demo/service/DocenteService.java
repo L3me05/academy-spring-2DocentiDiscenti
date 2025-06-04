@@ -28,7 +28,11 @@ public class DocenteService {
                 .collect(Collectors.toList());
     }
 
-    public DocenteDTO get(Long id) {
+    public boolean existsById(Long id) {
+        return docenteRepository.existsById(id);
+    }
+
+    public DocenteDTO findById(Long id) {
         Docente docente =docenteRepository.findById(id)
                 .orElseThrow();
         return docenteMapper.toDto(docente);

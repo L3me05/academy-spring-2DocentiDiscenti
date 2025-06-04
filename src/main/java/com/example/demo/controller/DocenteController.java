@@ -5,7 +5,6 @@ import com.example.demo.service.DocenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,7 +21,15 @@ public class DocenteController {
         Long numeroDocenti = docenteService.contaDocenti();
         return docenti;
     }
+    @GetMapping("/present")
+    public boolean existsById(@RequestParam Long id) {
+        return docenteService.existsById(id);
+    }
 
+    @GetMapping("/findById")
+    public DocenteDTO findById(@RequestParam Long id) {
+        return docenteService.findById(id);
+    }
 
 
     @GetMapping("/cerca")
