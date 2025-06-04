@@ -27,6 +27,11 @@ public class DiscenteController {
         return discenteService.findById(id);
     }
 
+    @GetMapping("/findByNomeAndCognome")
+    public Long findIdByNomeAndCognome(@RequestParam String nome, @RequestParam String cognome) {
+        return discenteService.findIdByNomeAndCognome(nome, cognome);
+    }
+
     @PostMapping
     public DiscenteDTO create(@RequestBody DiscenteDTO discenteDTO) {
         return discenteService.save(discenteDTO);

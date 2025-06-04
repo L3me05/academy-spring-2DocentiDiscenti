@@ -61,4 +61,8 @@ public class DiscenteService {
                 .map(discenteMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    public Long findIdByNomeAndCognome(String nome, String cognome) {
+        return discenteRepository.findIdByNomeAndCognome(nome, cognome);
+    }
 }

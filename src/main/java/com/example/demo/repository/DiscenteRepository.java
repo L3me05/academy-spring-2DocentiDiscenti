@@ -12,5 +12,7 @@ public interface DiscenteRepository extends JpaRepository<Discente, Long> {
     @Query("SELECT d FROM Discente d WHERE d.nome=:nome")
     List<Discente> findByName(String nome);
 
+    @Query("SELECT d.id FROM Discente d WHERE d.nome=:nome AND d.cognome=:cognome")
+    Long findIdByNomeAndCognome(String nome, String cognome);
 }
 
