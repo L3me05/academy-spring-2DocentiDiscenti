@@ -71,4 +71,14 @@ public class DocenteService {
                 .map(docenteMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    public Long findIdByNomeAndCognome(String nome, String cognome) {
+        return docenteRepository.findIdByNomeAndCognome(nome, cognome);
+    }
+
+    public Long createAndReturnId(DocenteDTO docenteDTO) {
+        Docente docente = docenteMapper.toEntity(docenteDTO);
+        Docente savedDocente = docenteRepository.save(docente);
+        return savedDocente.getId();
+    }
 }

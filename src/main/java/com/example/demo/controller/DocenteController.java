@@ -31,12 +31,21 @@ public class DocenteController {
         return docenteService.findById(id);
     }
 
+    @GetMapping("/findIdByNomeAndCognome")
+    public Long findIdByNomeAndCognome(@RequestParam String nome, @RequestParam String cognome) {
+        return docenteService.findIdByNomeAndCognome(nome, cognome);
+    }
+
 
     @GetMapping("/cerca")
     public List<DocenteDTO> cerca(@RequestParam String nome) {
         return docenteService.findbyNome(nome);
     }
 
+    @PostMapping("/createAndReturnId")
+    public Long createAndReturnId(@RequestBody DocenteDTO docenteDTO) {
+        return docenteService.createAndReturnId(docenteDTO);
+    }
 
     // SALVA NUOVO
     @PostMapping
